@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ToDoList.Data;
 
@@ -11,9 +12,11 @@ using ToDoList.Data;
 namespace ToDoList.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260423141800_addTarefa")]
+    partial class addTarefa
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,34 +24,6 @@ namespace ToDoList.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ToDoList.Models.Entities.Comentario", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Conteudo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CriadoEm")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("TarefaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UsuarioId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TarefaId");
-
-                    b.HasIndex("UsuarioId");
-
-                    b.ToTable("Comentarios");
-                });
 
             modelBuilder.Entity("ToDoList.Models.Entities.Tarefa", b =>
                 {
@@ -105,25 +80,6 @@ namespace ToDoList.Migrations
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("ToDoList.Models.Entities.Comentario", b =>
-                {
-                    b.HasOne("ToDoList.Models.Entities.Tarefa", "Tarefa")
-                        .WithMany("Comentarios")
-                        .HasForeignKey("TarefaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ToDoList.Models.Entities.Usuario", "Usuario")
-                        .WithMany("Comentarios")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Tarefa");
-
-                    b.Navigation("Usuario");
-                });
-
             modelBuilder.Entity("ToDoList.Models.Entities.Tarefa", b =>
                 {
                     b.HasOne("ToDoList.Models.Entities.Usuario", "Usuario")
@@ -135,15 +91,8 @@ namespace ToDoList.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("ToDoList.Models.Entities.Tarefa", b =>
-                {
-                    b.Navigation("Comentarios");
-                });
-
             modelBuilder.Entity("ToDoList.Models.Entities.Usuario", b =>
                 {
-                    b.Navigation("Comentarios");
-
                     b.Navigation("Tarefas");
                 });
 #pragma warning restore 612, 618

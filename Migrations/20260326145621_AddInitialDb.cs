@@ -34,8 +34,7 @@ namespace ToDoList.Migrations
                     Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Concluida = table.Column<bool>(type: "bit", nullable: false),
                     DataCriacao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Atuzlizada = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    AtualizadadeEm = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    AtualizadaEm = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UsuarioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
